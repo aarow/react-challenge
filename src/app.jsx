@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 
-import createStore from './redux/create';
 import './styles.less';
+
+import createStore from './redux/create';
+import Candidates from './screens/Candidates'
 
 
 function init(el, initialState) {
@@ -11,8 +13,7 @@ function init(el, initialState) {
 
     ReactDOM.render((
         <Provider store={store}>
-            <header className="header">My Pipeline</header>
-            <div>Hello world</div>
+            <Candidates />
         </Provider>
     ), el);
 }

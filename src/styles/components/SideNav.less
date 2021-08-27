@@ -1,0 +1,13 @@
+@active-color: @primary-color;
+@inactive-font-color: @font-muted-color;
+@active-font-color: @font-base-color;
+
+[class*=rc--side-nav--item] {
+    border-left: 3px solid transparent;
+    color: @inactive-font-color;
+}
+
+.rc--side-nav--item--active {
+    border-left-color: @active-color;
+    color: @active-font-color;
+}

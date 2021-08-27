@@ -1,0 +1,17 @@
+[type=text],
+[type=search],
+[type=email] {
+    border: 1px solid @font-muted-color;
+    border-width: 0 0 1px 0;
+    background: none;
+
+    &:focus-visible,
+    &:focus-within,
+    &:focus,
+    &:active,
+    &:target {
+        border-bottom-color: @primary-color;
+        outline: none;
+        box-shadow: none;
+    }
+}
