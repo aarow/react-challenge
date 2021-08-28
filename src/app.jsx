@@ -4,20 +4,11 @@ import { Provider } from 'react-redux'
 
 import './styles.less';
 
-import createStore from './redux/create';
+import store from './redux/create';
 import Candidates from './screens/Candidates'
 
-
-function init(el, initialState) {
-    const store = createStore(initialState);
-
-    ReactDOM.render((
-        <Provider store={store}>
-            <Candidates />
-        </Provider>
-    ), el);
-}
-
-export {
-    init,
-};
+ReactDOM.render((
+    <Provider store={store}>
+        <Candidates />
+    </Provider>
+), document.querySelector("#root"));

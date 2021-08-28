@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
 import CandidateList from '../components/CandidateList';
 import SearchForm from '../components/SearchForm';
 import SideNav from '../components/SideNav';
