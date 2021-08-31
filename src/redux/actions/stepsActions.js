@@ -1,8 +1,8 @@
-export const GET_STEP_LIST = 'GET_STEP_LIST';
+export const SET_STEP_LIST = "GET_STEP_LIST";
 
-export async function getStepList() {
-    return {
-        type: GET_STEP_LIST,
-        payload: []
-    };
+export async function setStepList(stepList = []) {
+  return {
+    type: SET_STEP_LIST,
+    payload: stepList,
+  };
 }
