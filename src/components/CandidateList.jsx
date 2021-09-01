@@ -10,19 +10,35 @@ import {
 const mapStateToProps = (state) => {
   return {
     candidateList: state.candidates.candidateList,
+    candidateFilter: state.candidates.candidateFilter.toLowerCase(),
+    currentStepFilter: state.steps.currentStepFilter,
   };
 };
 
 export function ConnectedCandidateList(props) {
-  const { candidateList } = props;
+  const { candidateList, currentStepFilter, candidateFilter } = props;
 
   useEffect(() => {
     props.dispatch(fetchCandidateList);
   }, []);
 
-  const handleUpdateCandidateStep = (candidate) => {
-    props.dispatch(updateCandidateStep(candidate));
+  const handleUpdateCandidateStep = (step, candidate) => {
+    console.log(step, candidate);
+    props.dispatch(updateCandidateStep({
+      ...candidate,
+      step
+    }));
   };
+
+  const filterByCurrentStep = (candidate) => {
+    if (currentStepFilter === "All Candidates") return true;
+    return currentStepFilter === candidate.step;
+  }
+
+  const filterByCandidateName = candidate => {
+    if (candidateFilter.trim() === "") return true;
+    return candidate.name.toLowerCase().indexOf(candidateFilter) > -1;
+  }
 
   return (
     <div>
@@ -35,29 +51,32 @@ export function ConnectedCandidateList(props) {
           </tr>
         </thead>
         <tbody>
-          {candidateList.map((candidate) => (
-            <tr key={candidate.name}>
-              <td>{candidate.name}</td>
-              <td>{format(new Date(), "EEEE, MMM d")}</td>
-              <td>
-                <StepDropdown
-                  step={candidate.step}
-                  handleChange={(candidate) =>
-                    handleUpdateCandidateStep(candidate)
-                  }
-                />
-              </td>
-            </tr>
-          ))}
+          {candidateList
+            .filter(filterByCurrentStep)
+            .filter(filterByCandidateName)
+            .map((candidate) => (
+              <tr key={candidate.name}>
+                <td>{candidate.name}</td>
+                <td>{format(new Date(), "EEEE, MMM d")}</td>
+                <td>
+                  <StepDropdown
+                    step={candidate.step}
+                    onChange={(step) =>
+                      handleUpdateCandidateStep(step, candidate)
+                    }
+                  />
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
   );
 }
 
-function StepDropdown({ step, handleChange }) {
+function StepDropdown({ step, onChange }) {
   return (
-    <select defaultValue={step} onChange={handleChange}>
+    <select defaultValue={step} onChange={e => onChange(e.currentTarget.value)}>
       <option value="">Choose Step</option>
       <option value="Paperwork">Paperwork</option>
       <option value="Background Check">Background Check</option>
