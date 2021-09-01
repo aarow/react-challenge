@@ -7,6 +7,10 @@ import {
   updateCandidateStep,
 } from "../redux/actions/candidateActions";
 
+import {
+  incrementStep, decrementStep
+} from "../redux/actions/stepsActions";
+
 const mapStateToProps = (state) => {
   return {
     candidateList: state.candidates.candidateList,
@@ -16,18 +20,21 @@ const mapStateToProps = (state) => {
 };
 
 export function ConnectedCandidateList(props) {
-  const { candidateList, currentStepFilter, candidateFilter } = props;
+  const { dispatch, candidateList, currentStepFilter, candidateFilter } = props;
 
   useEffect(() => {
-    props.dispatch(fetchCandidateList);
+    dispatch(fetchCandidateList);
   }, []);
 
   const handleUpdateCandidateStep = (step, candidate) => {
-    console.log(step, candidate);
-    props.dispatch(updateCandidateStep({
+    // console.log(step, candidate);
+    dispatch(updateCandidateStep({
       ...candidate,
       step
     }));
+
+    dispatch(decrementStep(candidate.step));
+    dispatch(incrementStep(step));
   };
 
   const filterByCurrentStep = (candidate) => {
@@ -56,8 +63,12 @@ export function ConnectedCandidateList(props) {
             .filter(filterByCandidateName)
             .map((candidate) => (
               <tr key={candidate.name}>
-                <td>{candidate.name}</td>
-                <td>{format(new Date(), "EEEE, MMM d")}</td>
+                <td>
+                  <span className="rc-table--inline-label">Candidate: </span>
+                  {candidate.name}</td>
+                <td>
+                  <span className="rc-table--inline-label">Date Interviewed: </span>
+                  {format(new Date(), "EEE, MMM d")}</td>
                 <td>
                   <StepDropdown
                     step={candidate.step}
@@ -75,13 +86,19 @@ export function ConnectedCandidateList(props) {
 }
 
 function StepDropdown({ step, onChange }) {
+  const handleChange = e => {
+    onChange(e.currentTarget.value);
+  }
+
   return (
-    <select defaultValue={step} onChange={e => onChange(e.currentTarget.value)}>
-      <option value="">Choose Step</option>
-      <option value="Paperwork">Paperwork</option>
-      <option value="Background Check">Background Check</option>
-      <option value="Drug Test">Drug Test</option>
-    </select>
+    <div className="rc-select">
+      <select className="rc-select--control" defaultValue={step} onChange={handleChange} data-value={step}  >
+        <option value="">Choose Step</option>
+        <option value="Paperwork">Paperwork</option>
+        <option value="Background Check">Background Check</option>
+        <option value="Drug Test">Drug Test</option>
+      </select>
+    </div>
   );
 }
 

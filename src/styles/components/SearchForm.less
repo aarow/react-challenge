@@ -1,0 +1,52 @@
+.rc--search--input--group {
+    display: flex;
+    position: relative;
+    max-width: 16rem;
+
+    &:after {
+        content: "";
+        width: 100%;
+        height: 1px;
+        display: block;
+        background-image: linear-gradient(to left, @line-color 0%, @line-color 50%, @primary-color 50%, @primary-color 100%);
+        background-size: 200%;
+        background-position: 100%;
+        transition: all 500ms;
+        position: absolute;
+        bottom: 0;
+    }
+        
+
+    &:focus-visible,
+    &:focus-within,
+    &:focus,
+    &:active,
+    &:target {
+        border-bottom-color: @primary-color;
+        outline: none;
+        box-shadow: none;
+
+        &:after {
+            background-position: 0;
+        }
+    }
+}
+
+.rc--search--input {
+    border: none;
+    background: none;
+    width: 100%;
+
+    &:focus-visible,
+    &:focus-within,
+    &:focus,
+    &:active,
+    &:target {
+        outline: none;
+        box-shadow: none;
+    }
+
+    &::placeholder {
+        color: @font-muted-color;
+    }
+}

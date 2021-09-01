@@ -1,13 +1,13 @@
 .rc--candidates-screen {
+    margin: 1rem 0 0 0;
     display: grid;
     grid-template-columns: auto 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto;
     gap: 1rem;
     grid-template-areas:
         "sidebar search"
-        "sidebar main";
+        "main main";
 }
-
 .rc--candidates-screen--side {
     grid-area: sidebar;
 }
@@ -18,4 +18,29 @@
 
 .rc--candidates-screen--list {
     grid-area: main;
+}
+
+
+@media screen and (min-width: 768px) {
+    .rc--candidates-screen {
+        display: grid;
+        grid-template-columns: 290px 1fr;
+        grid-template-rows: auto 1fr;
+        gap: 1rem;
+        grid-template-areas:
+            "none search"
+            "sidebar main";
+    }
+
+    .rc--candidates-screen--side {
+        grid-area: sidebar;
+    }
+
+    .rc--candidates-screen--search {
+        grid-area: search;
+    }
+
+    .rc--candidates-screen--list {
+        grid-area: main;
+    }
 }

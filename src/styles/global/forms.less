@@ -1,17 +1,35 @@
-[type=text],
-[type=search],
-[type=email] {
-    border: 1px solid @font-muted-color;
-    border-width: 0 0 1px 0;
+.rc-select--control {
+    -webkit-appearance: none;
+    border: none;
+    padding: 0.5rem 2rem 0.5rem 0.5rem;
+    text-transform: uppercase;
     background: none;
+    color: @font-base-color;
 
-    &:focus-visible,
-    &:focus-within,
-    &:focus,
-    &:active,
-    &:target {
-        border-bottom-color: @primary-color;
-        outline: none;
-        box-shadow: none;
+    &[data-value=""] {
+        color: @font-muted-color;
+    }
+
+    option:not([value=""]) {
+        color: @font-base-color;
+    }
+}
+
+.rc-select {
+    position: relative;
+    display: inline-block;
+    border: 1px solid @line-color;
+    border-radius: 4px;
+
+    &:after {
+        content: "";
+        position: absolute;
+        right: 0.5rem;
+        top: ~"calc(50% - 0.125rem)";
+        width: 0.5rem;
+        height: 0.5rem;
+        border: 1px solid @line-color;
+        border-width: 0 1px 1px 0;
+        transform: translateY(-50%) rotate(45deg);
     }
 }

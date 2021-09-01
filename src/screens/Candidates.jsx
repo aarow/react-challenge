@@ -6,7 +6,7 @@ import SideNav from "../components/SideNav";
 
 export default function Candidates(props) {
   return (
-    <div className="container">
+    <div className="container" >
       <div className="rc--candidates-screen">
         <div className="rc--candidates-screen--side">
           <SideNav />

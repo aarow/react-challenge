@@ -2,12 +2,56 @@
 @inactive-font-color: @font-muted-color;
 @active-font-color: @font-base-color;
 
-[class*=rc--side-nav--item] {
-    border-left: 3px solid transparent;
+.rc--side-nav--toggle {
+    display: none;
+}
+
+@media screen and (max-width: 767px) {    
+    .rc--side-nav--toggle {
+        display: block;
+    }
+
+    .rc--side-nav--group.show .rc--side-nav--toggle svg {
+        color: @active-font-color !important;
+    }
+
+    .rc--side-nav {
+        opacity: 0;
+        transform: translateX(-100%);
+        transition: all 250ms;
+        position: absolute;
+        left: 1rem;
+        background: #fff;
+        padding: 1rem;
+        border: 1px solid @inactive-font-color;
+        border-radius: 4px;
+        z-index: 1001;
+    }
+
+    .rc--side-nav--group.show .rc--side-nav {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+}
+
+
+.rc--side-nav--item,
+.rc--side-nav--item--active {
+    border-left: 5px solid transparent;
     color: @inactive-font-color;
+    padding: 0.5rem 1rem;
+    margin: 0.25rem 0;
+    text-transform: uppercase;
+    transition: all 250ms;
 }
 
 .rc--side-nav--item--active {
     border-left-color: @active-color;
     color: @active-font-color;
+    font-weight: 600;
+}
+
+.rc--side-nav--item--title {
+    padding: 0 0.25rem 0 0;
 }
